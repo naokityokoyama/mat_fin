@@ -1,5 +1,6 @@
 #packet
 import pandas as pd
+from math import log
 
 class Price:
   def __init__(self, juros, principal, parcelas):
@@ -143,7 +144,21 @@ class Hp12c:
     fv = self.fv
     pv = self.pv
     i = (fv/pv)**(1/n) - 1
-    return round (i*100,2)      
+    return round (i*100,2)    
+
+  def num_prestacao(self):
+    '''
+    -> calcula numero de prestacoes 
+    
+    '''
+    fv = self.fv
+    pv = self.pv
+    i = self.juros/100
+    part1 = fv/pv
+    part2 = 1+i
+
+    n = log(part1) / log(part2)
+    return round(n, 0)        
 
 if __name__ == "__main__":
     print ('tabelas de SAC // Price // Hp12c')
